@@ -5,7 +5,7 @@ import locales from './locales'
 export default defineConfig({
   title: 'Clash',
 
-  base: '/clash/',
+  // base: '/clash/', // Remove this for Vercel deployment
 
   head: [
     [
