@@ -21,4 +21,4 @@ WORKDIR /app
 
 COPY --from=backend-builder /app/clash .
 
-ENTRYPOINT ["./clash", "-d", "/conf"]
+CMD ["./clash", "-d", "/app/conf"]
