@@ -20,5 +20,6 @@ RUN apk add --no-cache bash ca-certificates tzdata
 WORKDIR /app
 
 COPY --from=backend-builder /app/clash .
+COPY dashboard /app/dashboard
 
 CMD ["./clash", "-d", "/app/conf"]
