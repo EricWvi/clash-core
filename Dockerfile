@@ -21,5 +21,6 @@ WORKDIR /app
 
 COPY --from=backend-builder /app/clash .
 COPY dashboard /app/dashboard
+COPY Country.mmdb /app/Country.mmdb
 
 CMD ["./clash", "-d", "/app/conf"]

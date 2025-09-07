@@ -65,7 +65,7 @@ func (p *path) IsSubPath(path string) bool {
 }
 
 func (p *path) MMDB() string {
-	return P.Join(p.homeDir, "Country.mmdb")
+	return "Country.mmdb"
 }
 
 func (p *path) OldCache() string {
