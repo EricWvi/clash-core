@@ -1,22 +1,24 @@
-FROM --platform=${BUILDPLATFORM} golang:alpine as builder
+FROM golang:1.21-alpine AS backend-builder
 
-RUN apk add --no-cache make git ca-certificates tzdata && \
-    wget -O /Country.mmdb https://github.com/Dreamacro/maxmind-geoip/releases/latest/download/Country.mmdb
-WORKDIR /workdir
-COPY --from=tonistiigi/xx:golang / /
-ARG TARGETOS TARGETARCH TARGETVARIANT
+# Set working directory
+WORKDIR /app
 
-RUN --mount=target=. \
-    --mount=type=cache,target=/root/.cache/go-build \
-    --mount=type=cache,target=/go/pkg/mod \
-    make BINDIR= ${TARGETOS}-${TARGETARCH}${TARGETVARIANT} && \
-    mv /clash* /clash
+# Copy Go modules files for better caching
+COPY go.mod go.sum ./
+RUN go mod download
+
+# Copy source code and build
+COPY . .
+RUN CGO_ENABLED=0 GOOS=linux go build
 
 FROM alpine:latest
-LABEL org.opencontainers.image.source="https://github.com/Dreamacro/clash"
 
-COPY --from=builder /usr/share/zoneinfo /usr/share/zoneinfo
-COPY --from=builder /etc/ssl/certs/ca-certificates.crt /etc/ssl/certs/
-COPY --from=builder /Country.mmdb /root/.config/clash/
-COPY --from=builder /clash /
-ENTRYPOINT ["/clash"]
+# Install a shell and CA certificates
+RUN apk add --no-cache bash ca-certificates tzdata
+
+# Set working directory inside container
+WORKDIR /app
+
+COPY --from=backend-builder /app/clash .
+
+ENTRYPOINT ["./clash", "-d", "/conf"]
