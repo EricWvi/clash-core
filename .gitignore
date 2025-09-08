@@ -26,8 +26,8 @@ test/config/cache*
 
 # docs site generator
 node_modules
-package-lock.json
-pnpm-lock.yaml
+
+public
 
 # docs site cache
 docs/.vitepress/cache
