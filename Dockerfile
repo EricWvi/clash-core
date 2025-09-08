@@ -5,7 +5,7 @@ WORKDIR /app
 
 RUN npm i -g pnpm
 COPY pnpm-lock.yaml package.json ./
-COPY ./patches/ ./patches/
+COPY ./dashboard/patches/ ./patches/
 RUN pnpm i
 
 COPY . .
