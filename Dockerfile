@@ -37,7 +37,7 @@ RUN apk add --no-cache bash ca-certificates tzdata
 WORKDIR /app
 
 COPY --from=backend-builder /app/clash .
-COPY --from=frontend-builder /app/public /app/dashboard/public
+COPY --from=frontend-builder /app/dashboard/public /app/dashboard/public
 COPY Country.mmdb /app/Country.mmdb
 
 CMD ["./clash", "-d", "/app/conf"]
