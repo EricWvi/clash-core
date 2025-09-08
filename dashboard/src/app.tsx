@@ -7,7 +7,7 @@ import '@fontsource/inter/latin-800.css';
 import inter400 from '@fontsource/inter/files/inter-latin-400-normal.woff2';
 import inter800 from '@fontsource/inter/files/inter-latin-800-normal.woff2';
 import robotoMono400 from '@fontsource/roboto-mono/files/roboto-mono-latin-400-normal.woff2';
-import flagfont from '../assets/TwemojiCountryFlags.woff2';
+import flagfont from 'country-flag-emoji-polyfill/TwemojiCountryFlags.woff2';
 import * as React from 'react';
 import { createRoot } from 'react-dom/client';
 import Modal from 'react-modal';
