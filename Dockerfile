@@ -4,11 +4,12 @@ FROM node:alpine AS frontend-builder
 WORKDIR /app
 
 RUN npm i -g pnpm
-COPY pnpm-lock.yaml package.json ./
-COPY ./patches/ ./patches/
+COPY dashboard/pnpm-lock.yaml dashboard/package.json ./dashboard/
+COPY dashboard/patches/ ./dashboard/patches/
+WORKDIR /app/dashboard
 RUN pnpm i
 
-COPY . .
+COPY dashboard/ ./
 RUN pnpm build \
   # remove source maps - people like small image
   && rm public/*.map || true
